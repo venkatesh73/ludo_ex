@@ -18,9 +18,8 @@ defmodule LudoExWeb.Router do
     pipe_through :browser
 
     live "/", GameLive, :index
-    live "/multiplayer", GameLive, :multiplayer
-    live "/lobby/:code", GameLive, :lobby
-    live "/game/:code", GameLive, :game_play
+    live "/lobby/:code/:player", GameLive, :lobby
+    live "/game/:code/:player", GameLive, :game_play
 
     live "/admin", AdminLive
   end

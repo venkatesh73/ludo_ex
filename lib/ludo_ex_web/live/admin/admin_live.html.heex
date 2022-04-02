@@ -1,1 +1,22 @@
-<h1>Admin Dashboard</h1>
+<div class="container">
+    <h1 class="text-center">Admin Dashboard</h1>
+    <h5 class="text-center">LudoEx game Status</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Game Code</th>
+                <th>Players count</th>
+                <th>Spectators count</th>
+            </tr>
+        </thead>
+        <tbody>
+            <%= for game <- @games_online do %>
+                <tr>
+                    <td><%= game %></td>
+                    <td><%= players_count(game) %></td>
+                    <td><%= spectator_count(game) %></td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>

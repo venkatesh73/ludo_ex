@@ -18,7 +18,8 @@ defmodule LudoEx.Application do
       LudoExWeb.Endpoint,
       # Start a worker by calling: LudoEx.Worker.start_link(arg)
       # {LudoEx.Worker, arg}
-      {LudoEx.LudoGameSupervisor, []}
+      {LudoEx.GameSupervisor, []},
+      {Registry, [name: LudoEx.GameRegistry, keys: :unique, members: :auto]}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

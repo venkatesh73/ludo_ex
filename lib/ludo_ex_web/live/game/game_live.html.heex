@@ -1,14 +1,181 @@
-<div class="container">
+<div class="container" class="text-center">
     <%= if @live_action === :index do %>
-        <button class="btn btn-large btn-primary" phx-click="start_game">Start Game</button>
+        <div class="container">
+            <h1>Welcome to Multiplayer LudoEx Game</h1>
+            <.form let={f} for={@changeset} phx-submit="join_game" %>
+                <h5>Game Player Settings</h5>
+                <div>
+                    <%= label(f, :player_name, class: "block text-sm font-medium text-gray-700") %>
+                    <div class="mt-1">
+                        <%= text_input(f, :name, class: "shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md") %>
+                    </div>
+                    <%= error_tag(f, :name) %>
+                </div>
+                <div>
+                    <%= label(f, :game_code, class: "block text-sm font-medium text-gray-700") %>
+                    <div class="mt-1">
+                        <%= text_input f, :game_code %>
+                        <span>Leave blank to create a new game.</span>
+                    </div>
+                    <%= error_tag(f, :game_code) %>
+                </div>
+                <div>
+                    <%= submit "Start/Join Game", class: "btn btn-large btn-success" %>
+                </div>
+            </.form>
+        </div>
     <% end %>
     <%= if @live_action === :lobby do %>
+        <h1 class="text-center">Welcome to Multiplayer LudoEx Game</h1>
         <div>
-            Game will start in <span>00:00 Mins</span>
+            <h5 class="text-center">Ask your Friends to Join game by accessing below code</h5>
+            <h1 style="color: green;font-weight:bold;" class="text-center"><%= @game_code %></h1>
             <div>
+                <h5 class="text-center">Number of Players joined the game (min of 2 max of 4 Players required to start)</h5>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>SI</th>
+                            <th>Player name</th>
+                            <th>Player choosen color</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%= for {{_, player}, idx} <- Enum.with_index(@players) do %>
+                            <tr>
+                                <td><%= idx + 1 %></td>
+                                <td><%= player.name %></td>
+                                <td><%= player.color %></td>
+                            </tr>
+                        <% end %>
+                    </tbody>
+                </table>
             </div>
         </div>
     <% end %>
     <%= if @live_action === :game_play do %>
+        <link phx-track-static rel="stylesheet" href={Routes.static_path(@socket, "/assets/game-player.css")}/>
+        <div class="game">
+            <div class="house green">
+                <div class="box">
+                    <div class="square square-one green"></div>
+                    <div class="square square-two green"></div>
+                    <div class="square square-three green"></div>
+                    <div class="square square-four green"></div>
+                </div>
+            </div>
+
+            <div class="house yellow" style="right: 0">
+                <div class="box">
+                    <div class="square square-one yellow"></div>
+                    <div class="square square-two yellow"></div>
+                    <div class="square square-three yellow"></div>
+                    <div class="square square-four yellow"></div>
+                </div>
+            </div>
+
+            <div class="house red" style="bottom: 0">
+                <div class="box">
+                    <div class="square square-one red"></div>
+                    <div class="square square-two red"></div>
+                    <div class="square square-three red"></div>
+                    <div class="square square-four red"></div>
+                </div>
+            </div>
+
+            <div class="house blue" style="bottom: 0;right: 0">
+                <div class="box">
+                    <div class="square square-one blue"></div>
+                    <div class="square square-two blue"></div>
+                    <div class="square square-three blue"></div>
+                    <div class="square square-four blue"></div>
+                </div>
+            </div>
+
+            <div class="home"></div>
+            <div class="cells" style="top: 40%;"></div>
+            <div class="cells g-start" style="top: 40%;left:6.66%;"></div>
+            <div class="cells" style="top: 40%;left:13.32%;"></div>
+            <div class="cells" style="top: 40%;left:19.98%;"></div>
+            <div class="cells" style="top: 40%;left:26.64%;"></div>
+            <div class="cells" style="top: 40%;left:33.3%;"></div>
+
+            <div class="cells" style="top: 0;left:40%;"></div>
+            <div class="cells" style="top: 6.66%;left:40%;"></div>
+            <div class="cells safe" style="top: 13.32%;left:40%;"></div>
+            <div class="cells" style="top: 19.98%;left:40%;"></div>
+            <div class="cells" style="top: 26.64%;left:40%;"></div>
+            <div class="cells" style="top: 33.3%;left:40%;"></div>
+
+            <div class="cells" style="top: 0;left:46.66%;"></div>
+            <div class="cells yellow" style="top: 6.66%;left:46.66%;"></div>
+            <div class="cells yellow" style="top: 13.32%;left:46.66%;"></div>
+            <div class="cells yellow" style="top: 19.98%;left:46.66%;"></div>
+            <div class="cells yellow" style="top: 26.64%;left:46.66%;"></div>
+            <div class="cells yellow" style="top: 33.3%;left:46.66%;"></div>
+
+            <div class="cells" style="top: 0;left:53.32%;"></div>
+            <div class="cells y-start" style="top: 6.66%;left:53.32%;"></div>
+            <div class="cells" style="top: 13.32%;left:53.32%;"></div>
+            <div class="cells" style="top: 19.98%;left:53.32%;"></div>
+            <div class="cells" style="top: 26.64%;left:53.32%;"></div>
+            <div class="cells" style="top: 33.3%;left:53.32%;"></div>
+
+            <div class="cells" style="top: 40%; right: 33.3%"></div>
+            <div class="cells" style="top: 40%;right:26.64%;"></div>
+            <div class="cells" style="top: 40%;right:19.98%;"></div>
+            <div class="cells safe" style="top: 40%;right:13.32%;"></div>
+            <div class="cells" style="top: 40%;right:6.66%;"></div>
+            <div class="cells" style="top: 40%;right:0;"></div>
+
+            <div class="cells blue" style="top: 46.66%; right: 33.3%"></div>
+            <div class="cells blue" style="top: 46.66%;right:26.64%;"></div>
+            <div class="cells blue" style="top: 46.66%;right:19.98%;"></div>
+            <div class="cells blue" style="top: 46.66%;right:13.32%;"></div>
+            <div class="cells blue" style="top: 46.66%;right:6.66%;"></div>
+            <div class="cells" style="top: 46.66%;right:0;"></div>
+
+            <div class="cells" style="top: 53.32%; right: 33.3%"></div>
+            <div class="cells" style="top: 53.32%;right:26.64%;"></div>
+            <div class="cells" style="top: 53.32%;right:19.98%;"></div>
+            <div class="cells" style="top: 53.32%;right:13.32%;"></div>
+            <div class="cells b-start" style="top: 53.32%;right:6.66%;"></div>
+            <div class="cells" style="top: 53.32%;right:0;"></div>
+
+            <div class="cells" style="bottom: 0;left:53.32%;"></div>
+            <div class="cells" style="bottom: 6.66%;left:53.32%;"></div>
+            <div class="cells safe" style="bottom: 13.32%;left:53.32%;"></div>
+            <div class="cells" style="bottom: 19.98%;left:53.32%;"></div>
+            <div class="cells" style="bottom: 26.64%;left:53.32%;"></div>
+            <div class="cells" style="bottom: 33.3%;left:53.32%;"></div>
+
+            <div class="cells" style="bottom: 0;left:46.66%;"></div>
+            <div class="cells red " style="bottom: 6.66%;left:46.66%;"></div>
+            <div class="cells red" style="bottom: 13.32%;left:46.66%;"></div>
+            <div class="cells red" style="bottom: 19.98%;left:46.66%;"></div>
+            <div class="cells red" style="bottom: 26.64%;left:46.66%;"></div>
+            <div class="cells red" style="bottom: 33.3%;left:46.66%;"></div>
+
+            <div class="cells" style="bottom: 0;left:40%;"></div>
+            <div class="cells r-start" style="bottom: 6.66%;left:40%;"></div>
+            <div class="cells" style="bottom: 13.32%;left:40%;"></div>
+            <div class="cells" style="bottom: 19.98%;left:40%;"></div>
+            <div class="cells" style="bottom: 26.64%;left:40%;"></div>
+            <div class="cells" style="bottom: 33.3%;left:40%;"></div>
+
+            <div class="cells" style="top: 53.32%; left: 33.3%"></div>
+            <div class="cells" style="top: 53.32%;left:26.64%;"></div>
+            <div class="cells" style="top: 53.32%;left:19.98%;"></div>
+            <div class="cells safe" style="top: 53.32%;left:13.32%;"></div>
+            <div class="cells" style="top: 53.32%;left:6.66%;"></div>
+            <div class="cells" style="top: 53.32%;left:0;"></div>
+
+            <div class="cells green" style="top: 46.66%;left: 33.3%"></div>
+            <div class="cells green" style="top: 46.66%;left:26.64%;"></div>
+            <div class="cells green" style="top: 46.66%;left:19.98%;"></div>
+            <div class="cells green" style="top: 46.66%;left:13.32%;"></div>
+            <div class="cells green" style="top: 46.66%;left:6.66%;"></div>
+            <div class="cells" style="top: 46.66%;left:0;"></div>
+        </div>
     <% end %>
 </div>
