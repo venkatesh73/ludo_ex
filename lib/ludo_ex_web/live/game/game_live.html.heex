@@ -1,0 +1,14 @@
+<div class="container">
+    <%= if @live_action === :index do %>
+        <button class="btn btn-large btn-primary" phx-click="start_game">Start Game</button>
+    <% end %>
+    <%= if @live_action === :lobby do %>
+        <div>
+            Game will start in <span>00:00 Mins</span>
+            <div>
+            </div>
+        </div>
+    <% end %>
+    <%= if @live_action === :game_play do %>
+    <% end %>
+</div>
