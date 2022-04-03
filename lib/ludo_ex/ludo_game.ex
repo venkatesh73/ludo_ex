@@ -22,4 +22,20 @@ defmodule LudoEx.LudoGame do
         GameServer.add_player_to_the_game(player)
     end
   end
+
+  def get_current_player(game_server) do
+    GameServer.get_active_game_player(game_server)
+  end
+
+  def get_active_game_players(game_server) do
+    players = get_game_players(game_server)
+
+    Enum.reduce(players, [], fn {_, %{is_player?: is_player} = player}, acc ->
+      if is_player === true do
+        [player | acc]
+      else
+        acc
+      end
+    end)
+  end
 end

@@ -6,13 +6,14 @@ defmodule LudoExWeb.GameLive do
 
   import Phoenix.HTML.Form
 
+  alias LudoEx.GameMoves
   alias LudoEx.GamePlayer
   alias LudoEx.LudoGame
   alias Phoenix.PubSub
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, changeset: GamePlayer.changeset(%{}))}
+    {:ok, assign(socket, changeset: GamePlayer.changeset(%{}), roll_value: 1)}
   end
 
   @impl true
@@ -22,7 +23,16 @@ defmodule LudoExWeb.GameLive do
         %{assigns: %{live_action: :game_play}} = socket
       ) do
     if LudoGame.game_server_exists?(game_code) do
-      {:noreply, assign(socket, game_code: game_code, player_id: player_id)}
+      PubSub.subscribe(LudoEx.PubSub, "game:#{game_code}")
+
+      socket =
+        socket
+        |> assign(:game_code, game_code)
+        |> assign(:player_id, player_id)
+        |> assign(:current_player, LudoGame.get_current_player(game_code))
+        |> assign(:active_game_players, LudoGame.get_active_game_players(game_code))
+
+      {:noreply, socket}
     else
       socket =
         socket
@@ -42,6 +52,8 @@ defmodule LudoExWeb.GameLive do
         %{assigns: %{live_action: :lobby}} = socket
       ) do
     if LudoGame.game_server_exists?(game_code) do
+      PubSub.subscribe(LudoEx.PubSub, "game:#{game_code}")
+
       socket =
         socket
         |> assign(:game_code, game_code)
@@ -107,6 +119,28 @@ defmodule LudoExWeb.GameLive do
     end
   end
 
+  def handle_event(
+        "roll_dice",
+        _,
+        %{
+          assigns: %{
+            game_code: game_server,
+            current_player: %{id: id} = player,
+            player_id: player_id
+          }
+        } = socket
+      ) do
+    if id === player_id do
+      Process.send_after(
+        self(),
+        {:dice_value, GameMoves.player_dice_move(game_server, player)},
+        800
+      )
+    end
+
+    {:noreply, socket}
+  end
+
   @impl true
   def handle_info({:new_player_joined, game_code}, socket) do
     {:noreply, assign(socket, :players, LudoGame.get_game_players(game_code))}
@@ -122,5 +156,22 @@ defmodule LudoExWeb.GameLive do
       |> push_patch(to: Routes.game_path(socket, :game_play, game_code, player_id))
 
     {:noreply, socket}
+  end
+
+  def handle_info({:dice_value, dice}, socket) do
+    {:noreply, assign(socket, :roll_value, dice)}
+  end
+
+  def handle_info({:new_game_play_move, game_code}, socket) do
+    socket =
+      socket
+      |> assign(:current_player, LudoGame.get_current_player(game_code))
+      |> assign(:active_game_players, LudoGame.get_active_game_players(game_code))
+
+    {:noreply, socket}
+  end
+
+  def can_roll_dice?(_game_code, _player_id) do
+    true
   end
 end

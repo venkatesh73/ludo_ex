@@ -31,6 +31,36 @@ defmodule LudoEx.GameServer do
     {:noreply, new_state}
   end
 
+  def handle_cast({:make_player_move, player_id, player}, state) do
+    players = Map.get(state, :players)
+    updated_players = Map.update(players, player_id, players[player_id], fn _ -> player end)
+    {:noreply, Map.update(state, :players, players, fn _ -> updated_players end)}
+  end
+
+  def handle_cast({:next_player_move, player_id}, %{players: players} = state) do
+    max_players = Enum.count(players) - 1
+
+    {_, next_player} =
+      case Enum.find_index(players, fn {id, _} -> id == player_id end) do
+        idx when idx === max_players ->
+          Enum.at(players, 0)
+
+        idx ->
+          Enum.at(players, idx + 1)
+      end
+
+    updated_player =
+      Enum.reduce(players, [], fn {id, player}, acc ->
+        if id == next_player.id do
+          acc ++ [{id, %{player | can_roll_dice?: true}}]
+        else
+          acc ++ [{id, %{player | can_roll_dice?: false}}]
+        end
+      end)
+
+    {:noreply, Map.update(state, :players, players, fn _ -> updated_player end)}
+  end
+
   #### Sync API Calls ####
   @doc """
   """
@@ -62,6 +92,18 @@ defmodule LudoEx.GameServer do
       :game_terminated ->
         {:reply, :game_terminated, state}
     end
+  end
+
+  def handle_call({:get_active_player_id}, _from, state) do
+    [{_, player} | _] =
+      Enum.filter(
+        state.players,
+        fn {id, %{can_roll_dice?: can_roll}} ->
+          if can_roll === true, do: id
+        end
+      )
+
+    {:reply, player, state}
   end
 
   ### Client Calls ###
@@ -113,6 +155,21 @@ defmodule LudoEx.GameServer do
     PubSub.broadcast!(LudoEx.PubSub, "game:#{game_server}", {:game_started})
   end
 
+  def get_active_game_player(game_server) do
+    GenServer.call(via_tuple(game_server), {:get_active_player_id})
+  end
+
+  def make_player_move(game_server, player_id, player) do
+    GenServer.cast(via_tuple(game_server), {:make_player_move, player_id, player})
+    PubSub.broadcast!(LudoEx.PubSub, "game:#{game_server}", {:new_game_play_move, game_server})
+  end
+
+  def next_player_make_move(game_server, player_id) do
+    GenServer.cast(via_tuple(game_server), {:next_player_move, player_id})
+    :timer.sleep(2000)
+    PubSub.broadcast(LudoEx.PubSub, "game:#{game_server}", {:new_game_play_move, game_server})
+  end
+
   defp via_tuple(code), do: {:via, Registry, {LudoEx.GameRegistry, code}}
 
   defp validate_and_add_player_to_game(
@@ -132,6 +189,7 @@ defmodule LudoEx.GameServer do
        ) do
     if Enum.count(players) < 4 do
       updated_player = Map.update(player, :is_player?, false, fn _ -> false end)
+
       {:spectator, Map.update(state, :players, %{}, &Map.put(&1, id, updated_player))}
     else
       {:player_exceeded, state}

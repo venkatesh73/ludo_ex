@@ -58,124 +58,142 @@
         <div class="game">
             <div class="house green">
                 <div class="box">
-                    <div class="square square-one green"></div>
-                    <div class="square square-two green"></div>
-                    <div class="square square-three green"></div>
-                    <div class="square square-four green"></div>
+                    <div class="square square-one green"><%= raw(player_pawns_in_home(@active_game_players, :green, 0))  %></div>
+                    <div class="square square-two green"><%= raw(player_pawns_in_home(@active_game_players, :green, 1))  %></div>
+                    <div class="square square-three green"><%= raw(player_pawns_in_home(@active_game_players, :green, 2))  %></div>
+                    <div class="square square-four green"><%= raw(player_pawns_in_home(@active_game_players, :green, 3))  %></div>
                 </div>
             </div>
 
             <div class="house yellow" style="right: 0">
                 <div class="box">
-                    <div class="square square-one yellow"></div>
-                    <div class="square square-two yellow"></div>
-                    <div class="square square-three yellow"></div>
-                    <div class="square square-four yellow"></div>
+                    <div class="square square-one yellow"><%= raw(player_pawns_in_home(@active_game_players, :yellow, 0))  %></div>
+                    <div class="square square-two yellow"><%= raw(player_pawns_in_home(@active_game_players, :yellow, 1))  %></div>
+                    <div class="square square-three yellow"><%= raw(player_pawns_in_home(@active_game_players, :yellow, 2))  %></div>
+                    <div class="square square-four yellow"><%= raw(player_pawns_in_home(@active_game_players, :yellow, 3))  %></div>
                 </div>
             </div>
 
             <div class="house red" style="bottom: 0">
                 <div class="box">
-                    <div class="square square-one red"></div>
-                    <div class="square square-two red"></div>
-                    <div class="square square-three red"></div>
-                    <div class="square square-four red"></div>
+                    <div class="square square-one red"><%= raw(player_pawns_in_home(@active_game_players, :red, 0))  %></div>
+                    <div class="square square-two red"><%= raw(player_pawns_in_home(@active_game_players, :red, 1))  %></div>
+                    <div class="square square-three red"><%= raw(player_pawns_in_home(@active_game_players, :red, 2))  %></div>
+                    <div class="square square-four red"><%= raw(player_pawns_in_home(@active_game_players, :red, 3))  %></div>
                 </div>
             </div>
 
             <div class="house blue" style="bottom: 0;right: 0">
                 <div class="box">
-                    <div class="square square-one blue"></div>
-                    <div class="square square-two blue"></div>
-                    <div class="square square-three blue"></div>
-                    <div class="square square-four blue"></div>
+                    <div class="square square-one blue"><%= raw(player_pawns_in_home(@active_game_players, :blue, 0))  %></div>
+                    <div class="square square-two blue"><%= raw(player_pawns_in_home(@active_game_players, :blue, 1))  %></div>
+                    <div class="square square-three blue"><%= raw(player_pawns_in_home(@active_game_players, :blue, 2))  %></div>
+                    <div class="square square-four blue"><%= raw(player_pawns_in_home(@active_game_players, :blue, 3))  %></div>
                 </div>
             </div>
 
             <div class="home"></div>
-            <div class="cells" style="top: 40%;"></div>
-            <div class="cells g-start" style="top: 40%;left:6.66%;"></div>
-            <div class="cells" style="top: 40%;left:13.32%;"></div>
-            <div class="cells" style="top: 40%;left:19.98%;"></div>
-            <div class="cells" style="top: 40%;left:26.64%;"></div>
-            <div class="cells" style="top: 40%;left:33.3%;"></div>
+            <div class="cells" style="top: 40%;"><%= raw(player_pawns_in_cell(@active_game_players, 42)) %></div>
+            <div class="cells g-start" style="top: 40%;left:6.66%;"><%= raw(player_pawns_in_cell(@active_game_players, 43)) %></div>
+            <div class="cells" style="top: 40%;left:13.32%;"><%= raw(player_pawns_in_cell(@active_game_players, 44)) %></div>
+            <div class="cells" style="top: 40%;left:19.98%;"><%= raw(player_pawns_in_cell(@active_game_players, 45)) %></div>
+            <div class="cells" style="top: 40%;left:26.64%;"><%= raw(player_pawns_in_cell(@active_game_players, 46)) %></div>
+            <div class="cells" style="top: 40%;left:33.3%;"><%= raw(player_pawns_in_cell(@active_game_players, 47)) %></div>
 
-            <div class="cells" style="top: 0;left:40%;"></div>
-            <div class="cells" style="top: 6.66%;left:40%;"></div>
-            <div class="cells safe" style="top: 13.32%;left:40%;"></div>
-            <div class="cells" style="top: 19.98%;left:40%;"></div>
-            <div class="cells" style="top: 26.64%;left:40%;"></div>
-            <div class="cells" style="top: 33.3%;left:40%;"></div>
+            <div class="cells" style="top: 0;left:40%;">
+            <%= raw(player_pawns_in_cell(@active_game_players, 1)) %>
+            </div>
+            <div class="cells" style="top: 6.66%;left:40%;"><%= raw(player_pawns_in_cell(@active_game_players, 52)) %></div>
+            <div class="cells safe" style="top: 13.32%;left:40%;"><%= raw(player_pawns_in_cell(@active_game_players, 51)) %></div>
+            <div class="cells" style="top: 19.98%;left:40%;"><%= raw(player_pawns_in_cell(@active_game_players, 50)) %></div>
+            <div class="cells" style="top: 26.64%;left:40%;"><%= raw(player_pawns_in_cell(@active_game_players, 49)) %></div>
+            <div class="cells" style="top: 33.3%;left:40%;"><%= raw(player_pawns_in_cell(@active_game_players, 48)) %></div>
 
-            <div class="cells" style="top: 0;left:46.66%;"></div>
-            <div class="cells yellow" style="top: 6.66%;left:46.66%;"></div>
-            <div class="cells yellow" style="top: 13.32%;left:46.66%;"></div>
-            <div class="cells yellow" style="top: 19.98%;left:46.66%;"></div>
-            <div class="cells yellow" style="top: 26.64%;left:46.66%;"></div>
-            <div class="cells yellow" style="top: 33.3%;left:46.66%;"></div>
+            <div class="cells" style="top: 0;left:46.66%;"><%= raw(player_pawns_in_cell(@active_game_players, 2)) %></div>
+            <div class="cells yellow" style="top: 6.66%;left:46.66%;"><%= raw(player_pawns_in_cell(@active_game_players, 60)) %></div>
+            <div class="cells yellow" style="top: 13.32%;left:46.66%;"><%= raw(player_pawns_in_cell(@active_game_players, 61)) %></div>
+            <div class="cells yellow" style="top: 19.98%;left:46.66%;"><%= raw(player_pawns_in_cell(@active_game_players, 62)) %></div>
+            <div class="cells yellow" style="top: 26.64%;left:46.66%;"><%= raw(player_pawns_in_cell(@active_game_players, 63)) %></div>
+            <div class="cells yellow" style="top: 33.3%;left:46.66%;"><%= raw(player_pawns_in_cell(@active_game_players, 64)) %></div>
 
-            <div class="cells" style="top: 0;left:53.32%;"></div>
-            <div class="cells y-start" style="top: 6.66%;left:53.32%;"></div>
-            <div class="cells" style="top: 13.32%;left:53.32%;"></div>
-            <div class="cells" style="top: 19.98%;left:53.32%;"></div>
-            <div class="cells" style="top: 26.64%;left:53.32%;"></div>
-            <div class="cells" style="top: 33.3%;left:53.32%;"></div>
+            <div class="cells" style="top: 0;left:53.32%;"><%= raw(player_pawns_in_cell(@active_game_players, 3)) %></div>
+            <div class="cells y-start" style="top: 6.66%;left:53.32%;"><%= raw(player_pawns_in_cell(@active_game_players, 4)) %></div>
+            <div class="cells" style="top: 13.32%;left:53.32%;"><%= raw(player_pawns_in_cell(@active_game_players, 5)) %></div>
+            <div class="cells" style="top: 19.98%;left:53.32%;"><%= raw(player_pawns_in_cell(@active_game_players, 6)) %></div>
+            <div class="cells" style="top: 26.64%;left:53.32%;"><%= raw(player_pawns_in_cell(@active_game_players, 7)) %></div>
+            <div class="cells" style="top: 33.3%;left:53.32%;"><%= raw(player_pawns_in_cell(@active_game_players, 8)) %></div>
 
-            <div class="cells" style="top: 40%; right: 33.3%"></div>
-            <div class="cells" style="top: 40%;right:26.64%;"></div>
-            <div class="cells" style="top: 40%;right:19.98%;"></div>
-            <div class="cells safe" style="top: 40%;right:13.32%;"></div>
-            <div class="cells" style="top: 40%;right:6.66%;"></div>
-            <div class="cells" style="top: 40%;right:0;"></div>
+            <div class="cells" style="top: 40%; right: 33.3%"><%= raw(player_pawns_in_cell(@active_game_players, 9)) %></div>
+            <div class="cells" style="top: 40%;right:26.64%;"><%= raw(player_pawns_in_cell(@active_game_players, 10)) %></div>
+            <div class="cells" style="top: 40%;right:19.98%;"><%= raw(player_pawns_in_cell(@active_game_players, 11)) %></div>
+            <div class="cells safe" style="top: 40%;right:13.32%;"><%= raw(player_pawns_in_cell(@active_game_players, 12)) %></div>
+            <div class="cells" style="top: 40%;right:6.66%;"><%= raw(player_pawns_in_cell(@active_game_players, 13)) %></div>
+            <div class="cells" style="top: 40%;right:0;"><%= raw(player_pawns_in_cell(@active_game_players, 14)) %></div>
 
-            <div class="cells blue" style="top: 46.66%; right: 33.3%"></div>
-            <div class="cells blue" style="top: 46.66%;right:26.64%;"></div>
-            <div class="cells blue" style="top: 46.66%;right:19.98%;"></div>
-            <div class="cells blue" style="top: 46.66%;right:13.32%;"></div>
-            <div class="cells blue" style="top: 46.66%;right:6.66%;"></div>
-            <div class="cells" style="top: 46.66%;right:0;"></div>
+            <div class="cells blue" style="top: 46.66%; right: 33.3%"><%= raw(player_pawns_in_cell(@active_game_players, 74)) %></div>
+            <div class="cells blue" style="top: 46.66%;right:26.64%;"><%= raw(player_pawns_in_cell(@active_game_players, 73)) %></div>
+            <div class="cells blue" style="top: 46.66%;right:19.98%;"><%= raw(player_pawns_in_cell(@active_game_players, 72)) %></div>
+            <div class="cells blue" style="top: 46.66%;right:13.32%;"><%= raw(player_pawns_in_cell(@active_game_players, 71)) %></div>
+            <div class="cells blue" style="top: 46.66%;right:6.66%;"><%= raw(player_pawns_in_cell(@active_game_players, 70)) %></div>
+            <div class="cells" style="top: 46.66%;right:0;"><%= raw(player_pawns_in_cell(@active_game_players, 15)) %></div>
 
-            <div class="cells" style="top: 53.32%; right: 33.3%"></div>
-            <div class="cells" style="top: 53.32%;right:26.64%;"></div>
-            <div class="cells" style="top: 53.32%;right:19.98%;"></div>
-            <div class="cells" style="top: 53.32%;right:13.32%;"></div>
-            <div class="cells b-start" style="top: 53.32%;right:6.66%;"></div>
-            <div class="cells" style="top: 53.32%;right:0;"></div>
+            <div class="cells" style="top: 53.32%; right: 33.3%"><%= raw(player_pawns_in_cell(@active_game_players, 21)) %></div>
+            <div class="cells" style="top: 53.32%;right:26.64%;"><%= raw(player_pawns_in_cell(@active_game_players, 20)) %></div>
+            <div class="cells" style="top: 53.32%;right:19.98%;"><%= raw(player_pawns_in_cell(@active_game_players, 19)) %></div>
+            <div class="cells" style="top: 53.32%;right:13.32%;"><%= raw(player_pawns_in_cell(@active_game_players, 18)) %></div>
+            <div class="cells b-start" style="top: 53.32%;right:6.66%;"><%= raw(player_pawns_in_cell(@active_game_players, 17)) %></div>
+            <div class="cells" style="top: 53.32%;right:0;"><%= raw(player_pawns_in_cell(@active_game_players, 16)) %></div>
 
-            <div class="cells" style="bottom: 0;left:53.32%;"></div>
-            <div class="cells" style="bottom: 6.66%;left:53.32%;"></div>
-            <div class="cells safe" style="bottom: 13.32%;left:53.32%;"></div>
-            <div class="cells" style="bottom: 19.98%;left:53.32%;"></div>
-            <div class="cells" style="bottom: 26.64%;left:53.32%;"></div>
-            <div class="cells" style="bottom: 33.3%;left:53.32%;"></div>
+            <div class="cells" style="bottom: 0;left:53.32%;"><%= raw(player_pawns_in_cell(@active_game_players, 27)) %></div>
+            <div class="cells" style="bottom: 6.66%;left:53.32%;"><%= raw(player_pawns_in_cell(@active_game_players, 26)) %></div>
+            <div class="cells safe" style="bottom: 13.32%;left:53.32%;"><%= raw(player_pawns_in_cell(@active_game_players, 25)) %></div>
+            <div class="cells" style="bottom: 19.98%;left:53.32%;"><%= raw(player_pawns_in_cell(@active_game_players, 24)) %></div>
+            <div class="cells" style="bottom: 26.64%;left:53.32%;"><%= raw(player_pawns_in_cell(@active_game_players, 23)) %></div>
+            <div class="cells" style="bottom: 33.3%;left:53.32%;"><%= raw(player_pawns_in_cell(@active_game_players, 22)) %></div>
 
-            <div class="cells" style="bottom: 0;left:46.66%;"></div>
-            <div class="cells red " style="bottom: 6.66%;left:46.66%;"></div>
-            <div class="cells red" style="bottom: 13.32%;left:46.66%;"></div>
-            <div class="cells red" style="bottom: 19.98%;left:46.66%;"></div>
-            <div class="cells red" style="bottom: 26.64%;left:46.66%;"></div>
-            <div class="cells red" style="bottom: 33.3%;left:46.66%;"></div>
+            <div class="cells" style="bottom: 0;left:46.66%;"><%= raw(player_pawns_in_cell(@active_game_players, 28)) %></div>
+            <div class="cells red " style="bottom: 6.66%;left:46.66%;"><%= raw(player_pawns_in_cell(@active_game_players, 80)) %></div>
+            <div class="cells red" style="bottom: 13.32%;left:46.66%;"><%= raw(player_pawns_in_cell(@active_game_players, 81)) %></div>
+            <div class="cells red" style="bottom: 19.98%;left:46.66%;"><%= raw(player_pawns_in_cell(@active_game_players, 82)) %></div>
+            <div class="cells red" style="bottom: 26.64%;left:46.66%;"><%= raw(player_pawns_in_cell(@active_game_players, 83)) %></div>
+            <div class="cells red" style="bottom: 33.3%;left:46.66%;"><%= raw(player_pawns_in_cell(@active_game_players, 84)) %></div>
 
-            <div class="cells" style="bottom: 0;left:40%;"></div>
-            <div class="cells r-start" style="bottom: 6.66%;left:40%;"></div>
-            <div class="cells" style="bottom: 13.32%;left:40%;"></div>
-            <div class="cells" style="bottom: 19.98%;left:40%;"></div>
-            <div class="cells" style="bottom: 26.64%;left:40%;"></div>
-            <div class="cells" style="bottom: 33.3%;left:40%;"></div>
+            <div class="cells" style="bottom: 0;left:40%;"><%= raw(player_pawns_in_cell(@active_game_players, 29)) %></div>
+            <div class="cells r-start" style="bottom: 6.66%;left:40%;"><%= raw(player_pawns_in_cell(@active_game_players, 30)) %></div>
+            <div class="cells" style="bottom: 13.32%;left:40%;"><%= raw(player_pawns_in_cell(@active_game_players, 31)) %></div>
+            <div class="cells" style="bottom: 19.98%;left:40%;"><%= raw(player_pawns_in_cell(@active_game_players, 32)) %></div>
+            <div class="cells" style="bottom: 26.64%;left:40%;"><%= raw(player_pawns_in_cell(@active_game_players, 33)) %></div>
+            <div class="cells" style="bottom: 33.3%;left:40%;"><%= raw(player_pawns_in_cell(@active_game_players, 34)) %></div>
 
-            <div class="cells" style="top: 53.32%; left: 33.3%"></div>
-            <div class="cells" style="top: 53.32%;left:26.64%;"></div>
-            <div class="cells" style="top: 53.32%;left:19.98%;"></div>
-            <div class="cells safe" style="top: 53.32%;left:13.32%;"></div>
-            <div class="cells" style="top: 53.32%;left:6.66%;"></div>
-            <div class="cells" style="top: 53.32%;left:0;"></div>
+            <div class="cells" style="top: 53.32%; left: 33.3%"><%= raw(player_pawns_in_cell(@active_game_players, 35)) %></div>
+            <div class="cells" style="top: 53.32%;left:26.64%;"><%= raw(player_pawns_in_cell(@active_game_players, 36)) %></div>
+            <div class="cells" style="top: 53.32%;left:19.98%;"><%= raw(player_pawns_in_cell(@active_game_players, 37)) %></div>
+            <div class="cells safe" style="top: 53.32%;left:13.32%;"><%= raw(player_pawns_in_cell(@active_game_players, 38)) %></div>
+            <div class="cells" style="top: 53.32%;left:6.66%;"><%= raw(player_pawns_in_cell(@active_game_players, 39)) %></div>
+            <div class="cells" style="top: 53.32%;left:0;"><%= raw(player_pawns_in_cell(@active_game_players, 40)) %></div>
 
-            <div class="cells green" style="top: 46.66%;left: 33.3%"></div>
-            <div class="cells green" style="top: 46.66%;left:26.64%;"></div>
-            <div class="cells green" style="top: 46.66%;left:19.98%;"></div>
-            <div class="cells green" style="top: 46.66%;left:13.32%;"></div>
-            <div class="cells green" style="top: 46.66%;left:6.66%;"></div>
-            <div class="cells" style="top: 46.66%;left:0;"></div>
+            <div class="cells green" style="top: 46.66%;left: 33.3%"><%= raw(player_pawns_in_cell(@active_game_players, 94)) %></div>
+            <div class="cells green" style="top: 46.66%;left:26.64%;"><%= raw(player_pawns_in_cell(@active_game_players, 93)) %></div>
+            <div class="cells green" style="top: 46.66%;left:19.98%;"><%= raw(player_pawns_in_cell(@active_game_players, 92)) %></div>
+            <div class="cells green" style="top: 46.66%;left:13.32%;"><%= raw(player_pawns_in_cell(@active_game_players, 91)) %></div>
+            <div class="cells green" style="top: 46.66%;left:6.66%;"><%= raw(player_pawns_in_cell(@active_game_players, 90)) %></div>
+            <div class="cells" style="top: 46.66%;left:0;"><%= raw(player_pawns_in_cell(@active_game_players, 41)) %></div>
         </div>
+        <button class={"dice #{@current_player.color}-player-play"} phx-click="roll_dice" onclick="spinDice()" disabled={@current_player.id !== @player_id}>
+            <img id="ludo-dice" src={Routes.static_path(@socket, "/assets/images/dice-#{@roll_value}.png")} class="dice-background">
+        </button>
+        <script>
+            function spinDice() {
+                var counter = 0;
+                var elem = document.getElementById("ludo-dice");
+                var i = setInterval(function(){
+                    counter++;
+                    elem.setAttribute("src", "/assets/images/dice-" + counter +".png")
+                    if(counter === 6) {
+                        clearInterval(i);
+                    }
+                }, 80);
+            }
+        </script>
     <% end %>
 </div>

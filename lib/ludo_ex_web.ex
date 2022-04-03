@@ -47,6 +47,7 @@ defmodule LudoExWeb do
       use Phoenix.LiveView,
         layout: {LudoExWeb.LayoutView, "live.html"}
 
+      import LudoExWeb.GameViewHelpers
       unquote(view_helpers())
     end
   end
